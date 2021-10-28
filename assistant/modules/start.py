@@ -16,6 +16,7 @@
 
 from assistant import app
 from kantex.html import *
+from tgEasy import Config
 
 
 @app.command("start")
@@ -36,8 +37,9 @@ async def start(clinet, message):
 @app.command("help")
 async def help(client, message):
     text = Section(
-        "Available Commands at this Time.",
-        Italic("Note: All commands can be used with the following: /!?"),
+        "Help.",
+        Italic(
+            f"Note: All commands can be used with the following: {Config.HANDLERS}"),
         SubSection(
             "Commands:",
             "/start - Starts the bot.",
@@ -50,6 +52,7 @@ async def help(client, message):
             "/kick {handle/reply} - Kicks the User - Admins Only.",
             "/kickme - Kicks the User who sent the Command.",
             "/info {handle/reply/none} - Shows Information about the User.",
+            "/id - Shows the ID of Chat if not replied else the Replied User ID.",
             "/paste {reply to text/file} - Pastes the Content to Spacebin."
         ),
     )

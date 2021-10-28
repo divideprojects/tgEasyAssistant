@@ -64,7 +64,7 @@ async def paste_bin(client, message):
         if message.reply_to_message.document:
             if message.reply_to_message.document.file_size > 600000:
                 return await statusMsg.edit_text("Max file size that can be pasted is 600KB.")
-            uniqueId = f"paste_{message.from_user.id}_{message.message_id}"
+            uniqueId = f"paste_{str(message.chat.id).replace('-', '')}_{message.message_id}"
             file_ = await message.reply_to_message.download(uniqueId)
             with open(file_, 'rb') as f:
                 content = f.read().decode("UTF-8")
