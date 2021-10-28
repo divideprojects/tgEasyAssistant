@@ -14,9 +14,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+from logging import Handler
 from assistant import app
 from kantex.html import *
-from tgEasy import Config
+from tgEasy.config import config
 
 
 @app.command("start")
@@ -39,7 +40,7 @@ async def help(client, message):
     text = Section(
         "Help.",
         Italic(
-            f"Note: All commands can be used with the following: {Config.HANDLERS}"),
+            f"Note: All commands can be used with the following: {config('HANDLER', default='/!')}"),
         SubSection(
             "Commands:",
             "/start - Starts the bot.",
