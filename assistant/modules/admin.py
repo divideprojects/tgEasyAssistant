@@ -20,6 +20,7 @@ from tgEasy import get_user, is_admin
 
 
 @app.command("ban", group_only=True)
+@app.adminsOnly("can_restrict_members")
 async def ban(client, message):
     user = await get_user(message)
     if not user:
@@ -34,6 +35,7 @@ async def ban(client, message):
 
 
 @app.command("unban", group_only=True)
+@app.adminsOnly("can_restrict_members")
 async def unban(client, message):
     user = await get_user(message)
     if not user:
@@ -48,6 +50,7 @@ async def unban(client, message):
 
 
 @app.command("kick", group_only=True)
+@app.adminsOnly("can_restrict_members")
 async def kick(client, message):
     user = await get_user(message)
     if not user:
@@ -63,6 +66,7 @@ async def kick(client, message):
 
 
 @app.command("mute", group_only=True)
+@app.adminsOnly("can_restrict_members")
 async def mute(client, message):
     user = await get_user(message)
     if not user:
@@ -77,6 +81,7 @@ async def mute(client, message):
 
 
 @app.command("unmute", group_only=True)
+@app.adminsOnly("can_restrict_members")
 async def unmute(client, message):
     user = await get_user(message)
     if not user:
@@ -91,6 +96,7 @@ async def unmute(client, message):
 
 
 @app.command("promote", group_only=True)
+@app.adminsOnly("can_promote_members")
 async def promote(client, message):
     user = await get_user(message)
     if not user:
@@ -112,6 +118,7 @@ async def promote(client, message):
 
 
 @app.command("demote", group_only=True)
+@app.adminsOnly("can_promote_members")
 async def demote(client, message):
     user = await get_user(message)
     if not user:
