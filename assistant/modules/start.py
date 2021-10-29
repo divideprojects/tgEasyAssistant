@@ -54,6 +54,9 @@ async def help(client, message):
             "/kickme - Kicks the User who sent the Command.",
             "/info {handle/reply/none} - Shows Information about the User.",
             "/id - Shows the ID of Chat if not replied else the Replied User ID.",
+            "/del {reply} - Delets the Replied Message along with Command.",
+            "/purge {reply} - Purges from the Message you reply, If you pass " "{Code('-s')} as Flag, then it will be a Silet Purge.",
+            "/get {note name} - To get the Note.",
             "/paste {reply to text/file} - Pastes the Content to Spacebin."
         ),
     )

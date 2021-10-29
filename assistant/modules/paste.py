@@ -62,8 +62,8 @@ async def paste_bin(client, message):
 
     if message.reply_to_message:
         if message.reply_to_message.document:
-            if message.reply_to_message.document.file_size > 600000:
-                return await statusMsg.edit_text("Max file size that can be pasted is 600KB.")
+            if message.reply_to_message.document.file_size > 400000:
+                return await statusMsg.edit_text("Max file size that can be pasted is 400KB.")
             uniqueId = f"paste_{str(message.chat.id).replace('-', '')}_{message.message_id}"
             file_ = await message.reply_to_message.download(uniqueId)
             with open(file_, 'rb') as f:
@@ -85,7 +85,7 @@ async def paste_bin(client, message):
                 timeout=3
             ) as response:
                 key = (await response.json())["payload"].get("id")
-                url = f"Spacebin Denied the Paste \n{await response.json()}"
+                url = f"Spacebin Denied the Paste. \n{await response.json()}"
                 if key:
                     url = f"https://spaceb.in/{key}"
     except Exception as e:

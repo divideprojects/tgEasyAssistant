@@ -44,9 +44,8 @@ Important Rules:
 
 
 async def chatWelcome(chatId: int):
-    id = str(chatId).replace('-', '')
     try:
-        return WELCOME_TEXTS.get(f'CHAT_{id}')
+        return WELCOME_TEXTS.get(f"CHAT_{str(chatId).replace('-', '')}")
     except:
         return None
 
