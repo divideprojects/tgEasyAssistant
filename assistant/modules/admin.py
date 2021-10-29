@@ -206,6 +206,7 @@ async def unpin(client, message):
 
 
 @app.command("unpinall", group_only=True)
+@app.adminsOnly("can_pin_messages")
 async def unpinall(client, message):
     await client.unpin_all_chat_messages(message.chat.id)
     await message.reply_text("All pinned messages have been unpinned.")
