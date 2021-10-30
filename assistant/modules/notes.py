@@ -13,10 +13,10 @@
 
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
 from assistant import app
 from kantex.html import *
 from tgEasy.config import config
+
 
 NOTES = {
     "CHAT_1001356758367": {
@@ -32,16 +32,15 @@ NOTES = {
 async def get_note(chat_id, key):
     try:
         return NOTES.get(f"CHAT_{str(chat_id).replace('-', '')}").get(key)
-    except Exception as e:
+    except (KeyError, ValueError):
         return None
 
 
 @app.command("get")
 async def get(client, message):
+    reply_to = message.reply_to_message.message_id if message.reply_to_message else message.message_id
     if not len(message.command) > 1:
         return await message.reply_text("Specify a Note to get.")
     if await get_note(message.chat.id, message.command[1]):
-        if message.reply_to_message:
-            return await message.reply_to_message.reply_text(await get_note(message.chat.id, message.command[1].lower()), disable_web_page_preview=True)
-        return await message.reply_text((await get_note(message.chat.id, message.command[1].lower())), disable_web_page_preview=True)
+        return await message.reply_text(await get_note(message.chat.id, message.command[1].lower()), quote=True, disable_web_page_preview=True, reply_to_message_id=reply_to)
     return await message.reply_text("No such note found.")
