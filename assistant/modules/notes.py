@@ -32,7 +32,7 @@ NOTES = {
 async def get_note(chat_id, key):
     try:
         return NOTES.get(f"CHAT_{str(chat_id).replace('-', '')}").get(key)
-    except (KeyError, ValueError):
+    except (KeyError, ValueError, AttributeError):
         return None
 
 
