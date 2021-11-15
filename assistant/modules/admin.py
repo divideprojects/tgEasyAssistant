@@ -20,7 +20,7 @@ from pyrogram.types.messages_and_media import message
 from tgEasy import get_user, is_admin
 
 
-@app.command("ban", group_only=True)
+@app.command("ban", group_only=True, self_admin=True)
 @app.adminsOnly(permission="can_restrict_members")
 async def ban(client, message):
     user = await get_user(message)
@@ -35,7 +35,7 @@ async def ban(client, message):
         return
 
 
-@app.command("unban", group_only=True)
+@app.command("unban", group_only=True, self_admin=True)
 @app.adminsOnly(permission="can_restrict_members")
 async def unban(client, message):
     user = await get_user(message)
@@ -50,7 +50,7 @@ async def unban(client, message):
         return
 
 
-@app.command("kick", group_only=True)
+@app.command("kick", group_only=True, self_admin=True)
 @app.adminsOnly(permission="can_restrict_members")
 async def kick(client, message):
     user = await get_user(message)
@@ -66,7 +66,7 @@ async def kick(client, message):
         return
 
 
-@app.command("mute", group_only=True)
+@app.command("mute", group_only=True, self_admin=True)
 @app.adminsOnly(permission="can_restrict_members")
 async def mute(client, message):
     user = await get_user(message)
@@ -81,7 +81,7 @@ async def mute(client, message):
         return
 
 
-@app.command("unmute", group_only=True)
+@app.command("unmute", group_only=True, self_admin=True)
 @app.adminsOnly(permission="can_restrict_members")
 async def unmute(client, message):
     user = await get_user(message)
@@ -96,7 +96,7 @@ async def unmute(client, message):
         return
 
 
-@app.command("promote", group_only=True)
+@app.command("promote", group_only=True, self_admin=True)
 @app.adminsOnly(permission="can_promote_members")
 async def promote(client, message):
     user = await get_user(message)
@@ -118,7 +118,7 @@ async def promote(client, message):
         return
 
 
-@app.command("demote", group_only=True)
+@app.command("demote", group_only=True, self_admin=True)
 @app.adminsOnly(permission="can_promote_members")
 async def demote(client, message):
     user = await get_user(message)
@@ -133,7 +133,7 @@ async def demote(client, message):
         pass
 
 
-@app.command("kickme", group_only=True)
+@app.command("kickme", group_only=True, self_admin=True)
 async def kickme(client, message):
     if await is_admin(message.chat.id, message.from_user.id, client):
         return
@@ -145,7 +145,7 @@ async def kickme(client, message):
         return
 
 
-@app.command("del", group_only=True)
+@app.command("del", group_only=True, self_admin=True)
 @app.adminsOnly(permission="can_delete_messages")
 async def delete(client, message):
     try:
@@ -156,7 +156,7 @@ async def delete(client, message):
         pass
 
 
-@app.command("purge", group_only=True)
+@app.command("purge", group_only=True, self_admin=True)
 @app.adminsOnly(permission="can_delete_messages")
 async def purge(client, message):
     spurge = False
@@ -187,7 +187,7 @@ async def purge(client, message):
     await message.delete()
 
 
-@app.command("pin", group_only=True)
+@app.command("pin", group_only=True, self_admin=True)
 @app.adminsOnly(permission="can_pin_messages")
 async def pin(client, message):
     if not message.reply_to_message:
@@ -196,7 +196,7 @@ async def pin(client, message):
     await message.reply_text("Pinned.")
 
 
-@app.command("unpin", group_only=True)
+@app.command("unpin", group_only=True, self_admin=True)
 @app.adminsOnly(permission="can_pin_messages")
 async def unpin(client, message):
     if not message.reply_to_message:
@@ -205,7 +205,7 @@ async def unpin(client, message):
     await message.reply_text("Unpinned.")
 
 
-@app.command("unpinall", group_only=True)
+@app.command("unpinall", group_only=True, self_admin=True)
 @app.adminsOnly("can_pin_messages")
 async def unpinall(client, message):
     await client.unpin_all_chat_messages(message.chat.id)

@@ -14,11 +14,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from logging import Handler
 from assistant import app
 from kantex.html import *
 from tgEasy.config import config
-
 
 @app.command("start")
 async def start(clinet, message):

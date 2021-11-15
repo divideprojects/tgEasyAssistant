@@ -19,7 +19,6 @@ from tgEasy.helpers import get_user_adv, handle_error
 
 from .. import app
 
-
 @app.command("info")
 async def info(client, message):
     try:

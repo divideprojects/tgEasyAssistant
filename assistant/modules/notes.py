@@ -13,10 +13,10 @@
 
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 from assistant import app
 from kantex.html import *
 from tgEasy.config import config
-
 
 NOTES = {
     "CHAT_1001356758367": {

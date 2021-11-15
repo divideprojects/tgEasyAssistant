@@ -21,7 +21,6 @@ from pyrogram import Client, filters
 
 from .. import app
 
-
 @app.command("paste")
 async def paste_bin(client, message):
     statusMsg = await message.reply_text("Pasting to Spacebin, Please wait for a while...")

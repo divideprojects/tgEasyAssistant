@@ -24,7 +24,7 @@ from pyrogram.errors.exceptions.forbidden_403 import (ChatAdminRequired,
 from pyrogram.methods.chats import get_chat_member
 from pyrogram.types import ChatPermissions, Message
 from pyrogram.types.messages_and_media import message
-from tgEasy import handle_error, ikb
+from tgEasy import handle_error, ikb, is_admin
 
 from .. import app
 
@@ -49,9 +49,10 @@ async def chatWelcome(chatId: int):
     except:
         return None
 
-
 @app.__client__.on_message(filters.new_chat_members)
 async def welcome(client, message: Message):
+    if not await is_admin(message.chat.id, (await client.get_me()).id, client):
+        return
     for user in message.new_chat_members:
         if user.id == (await client.get_me()).id:
             return
@@ -60,20 +61,20 @@ async def welcome(client, message: Message):
         try:
             if (await message.chat.get_member(user.id)).status == "restricted":
                 return await message.reply_text(f"User {user.mention} was Restricted by admins and they tried to rejoin the chat.")
-            await message.reply_text(f"Hello {user.mention}! Please Click below Button to Confirm you are a Human", reply_markup=ikb([[["Confirm that you are a human", f"wlc_conf({user.id})"]]]))
+            replied = await message.reply_text(f"Hello {user.mention}! Please Click below Button to Confirm you are a Human", reply_markup=ikb([[["Confirm that you are a human", f"wlc_conf({user.id})"]]]))
             await message.chat.restrict_member(user.id, ChatPermissions())
         except ChatWriteForbidden:
             return await message.chat.leave()
-        except ChatAdminRequired:
-            return
-        except MessageNotModified:
-            pass
+        except (ChatAdminRequired, MessageNotModified):
+            return await replied.delete()
         except BaseException as e:
             return await handle_error(e, message)
 
 
 @app.callback("wlc_conf")
 async def wlc_conf(client, cb):
+    if not await is_admin(cb.message.chat.id, (await client.get_me()).id, client):
+        return
     try:
         match = re.match(r"captcha\((.+?)\)", cb.data)
         if match:
@@ -89,12 +90,10 @@ async def wlc_conf(client, cb):
             return await cb.message.delete()
         await cb.message.edit_text((await chatWelcome(cb.message.chat.id)), disable_web_page_preview=True, parse_mode="markdown")
         await cb.message.chat.unban_member(cb.from_user.id)
-    except MessageNotModified:
-        return
     except ChatWriteForbidden:
         return await cb.message.chat.leave()
-    except ChatAdminRequired:
-        return
+    except (ChatAdminRequired, MessageNotModified):
+        return await cb.message.delete()
     except Exception as e:
         try:
             await cb.edit_message_reply_markup()
