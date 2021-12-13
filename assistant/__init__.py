@@ -23,7 +23,7 @@ client = Client(
     api_id=config("API_ID"),
     api_hash=config("API_HASH"),
     bot_token=config("BOT_TOKEN"),
-    plugins={"root": "assistant/modules"}
+    plugins={"root": "assistant/modules"},
 )
 client.set_parse_mode("html")
 app = tgClient(client)

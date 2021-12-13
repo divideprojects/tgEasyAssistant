@@ -14,10 +14,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from assistant import app
 from pyrogram.types import ChatPermissions
 from pyrogram.types.messages_and_media import message
 from tgEasy import get_user, is_admin
+
+from assistant import app
 
 
 @app.command("ban", group_only=True, self_admin=True)
@@ -111,7 +112,7 @@ async def promote(client, message):
             can_restrict_members=True,
             can_invite_users=True,
             can_pin_messages=True,
-            can_promote_members=False
+            can_promote_members=False,
         )
         await message.reply_text(f"{user.mention} has been Promoted")
     except:
@@ -140,7 +141,9 @@ async def kickme(client, message):
     try:
         await message.chat.kick_member(message.from_user.id)
         await message.chat.unban_member(message.from_user.id)
-        await message.reply_text(f"As per the Wish of {message.from_user.mention}, They have been kicked.")
+        await message.reply_text(
+            f"As per the Wish of {message.from_user.mention}, They have been kicked."
+        )
     except:
         return
 
@@ -165,7 +168,9 @@ async def purge(client, message):
             spurge = True
     messageIds = []
     if not message.reply_to_message:
-        return await message.reply_text("Reply to a message to show me where to purge from.")
+        return await message.reply_text(
+            "Reply to a message to show me where to purge from."
+        )
     for ids in range(message.reply_to_message.message_id, message.message_id):
         messageIds.append(ids)
         if len(messageIds) == 100:

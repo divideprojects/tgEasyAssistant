@@ -49,6 +49,7 @@ async def chatWelcome(chatId: int):
     except:
         return None
 
+
 @app.__client__.on_message(filters.new_chat_members)
 async def welcome(client, message: Message):
     if not await is_admin(message.chat.id, (await client.get_me()).id, client):
@@ -60,8 +61,15 @@ async def welcome(client, message: Message):
             return
         try:
             if (await message.chat.get_member(user.id)).status == "restricted":
-                return await message.reply_text(f"User {user.mention} was Restricted by admins and they tried to rejoin the chat.")
-            replied = await message.reply_text(f"Hello {user.mention}! Please Click below Button to Confirm you are a Human", reply_markup=ikb([[["Confirm that you are a human", f"wlc_conf({user.id})"]]]))
+                return await message.reply_text(
+                    f"User {user.mention} was Restricted by admins and they tried to rejoin the chat."
+                )
+            replied = await message.reply_text(
+                f"Hello {user.mention}! Please Click below Button to Confirm you are a Human",
+                reply_markup=ikb(
+                    [[["Confirm that you are a human", f"wlc_conf({user.id})"]]]
+                ),
+            )
             await message.chat.restrict_member(user.id, ChatPermissions())
         except ChatWriteForbidden:
             return await message.chat.leave()
@@ -80,15 +88,31 @@ async def wlc_conf(client, cb):
         if match:
             user_id = int(match.group(1))
             if not user_id == cb.from_user.id:
-                if (await message.chat.get_member(cb.from_user.id)).status == "restricted":
-                    return await cb.answer("You were Restricted by the admins, If you think this was a mistake then Contact the administrators.", show_alert=True)
-                if (await message.chat.member(cb.from_user.id)).status in ["member", "administrator", "creator"]:
-                    return await cb.answer("You can alredy talk freely, If you think you are smart then this Situation in handled.", show_alert=True)
+                if (
+                    await message.chat.get_member(cb.from_user.id)
+                ).status == "restricted":
+                    return await cb.answer(
+                        "You were Restricted by the admins, If you think this was a mistake then Contact the administrators.",
+                        show_alert=True,
+                    )
+                if (await message.chat.member(cb.from_user.id)).status in [
+                    "member",
+                    "administrator",
+                    "creator",
+                ]:
+                    return await cb.answer(
+                        "You can alredy talk freely, If you think you are smart then this Situation in handled.",
+                        show_alert=True,
+                    )
         await cb.edit_message_reply_markup()
         if not await chatWelcome(cb.message.chat.id):
             await cb.message.chat.unban_member(cb.from_user.id)
             return await cb.message.delete()
-        await cb.message.edit_text((await chatWelcome(cb.message.chat.id)), disable_web_page_preview=True, parse_mode="markdown")
+        await cb.message.edit_text(
+            (await chatWelcome(cb.message.chat.id)),
+            disable_web_page_preview=True,
+            parse_mode="markdown",
+        )
         await cb.message.chat.unban_member(cb.from_user.id)
     except ChatWriteForbidden:
         return await cb.message.chat.leave()

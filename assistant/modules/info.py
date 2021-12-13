@@ -19,27 +19,29 @@ from tgEasy.helpers import get_user_adv, handle_error
 
 from .. import app
 
+
 @app.command("info")
 async def info(client, message):
     try:
         user = await get_user_adv(message)
         if not user:
             return
-        last_name = f" {user.last_name}" if user.last_name else ''
+        last_name = f" {user.last_name}" if user.last_name else ""
         name = user.first_name + last_name
-        username = f'@{user.username}' if user.username else ''
-        info = Section("User Information",
-                       f"Name: {name}",
-                       f"Username: {username}",
-                       f"User ID: {Code(user.id)}",
-                       f"User Link: {user.mention('link')}"
-                       )
-        text = str(f'{info}\n')
-        text += '\nUser is a Bot.' if user.is_bot else ''
-        text += '\nUser has been flagged for Scam.' if user.is_scam else ''
-        text += '\nUser has been flagged for impersonation.' if user.is_fake else ''
-        text += '\nUser has been Verified by Telegram.' if user.is_verified else ''
-        text += '\nUser is a part of Telegram Support Team.' if user.is_support else ''
+        username = f"@{user.username}" if user.username else ""
+        info = Section(
+            "User Information",
+            f"Name: {name}",
+            f"Username: {username}",
+            f"User ID: {Code(user.id)}",
+            f"User Link: {user.mention('link')}",
+        )
+        text = str(f"{info}\n")
+        text += "\nUser is a Bot." if user.is_bot else ""
+        text += "\nUser has been flagged for Scam." if user.is_scam else ""
+        text += "\nUser has been flagged for impersonation." if user.is_fake else ""
+        text += "\nUser has been Verified by Telegram." if user.is_verified else ""
+        text += "\nUser is a part of Telegram Support Team." if user.is_support else ""
         await message.reply_text(text, disable_web_page_preview=True)
     except Exception as e:
         return await handle_error(message, e)

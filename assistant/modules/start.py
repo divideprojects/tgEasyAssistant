@@ -14,9 +14,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from assistant import app
 from kantex.html import *
 from tgEasy.config import config
+
+from assistant import app
+
 
 @app.command("start")
 async def start(clinet, message):
@@ -27,8 +29,10 @@ async def start(clinet, message):
             Link(label="tgEasy", url="https://github.com/jayantkageri/tgEasy"),
             "Assistant Robot for tgEasy",
             "",
-            Link(label="Source Code",
-                 url="https://github.com/DivideProjects/tgEasyAssistant")
+            Link(
+                label="Source Code",
+                url="https://github.com/DivideProjects/tgEasyAssistant",
+            ),
         )
         return await message.reply_text(str(text), disable_web_page_preview=True)
 
@@ -38,7 +42,8 @@ async def help(client, message):
     text = Section(
         "Help.",
         Italic(
-            f"Note: All commands can be used with the following: {config('HANDLER', default='/!')}"),
+            f"Note: All commands can be used with the following: {config('HANDLER', default='/!')}"
+        ),
         SubSection(
             "Commands:",
             "/start - Starts the bot.",
@@ -53,9 +58,10 @@ async def help(client, message):
             "/info {handle/reply/none} - Shows Information about the User.",
             "/id - Shows the ID of Chat if not replied else the Replied User ID.",
             "/del {reply} - Delets the Replied Message along with Command - Admins Only.",
-            "/purge {reply} - Purges from the Message you reply, If you pass " f"{Code('-s')} as Flag, then it will be a Silet Purge - Admins Only.",
+            "/purge {reply} - Purges from the Message you reply, If you pass "
+            f"{Code('-s')} as Flag, then it will be a Silet Purge - Admins Only.",
             "/get {note name} - To get the Note.",
-            "/paste {reply to text/file} - Pastes the Content to Spacebin."
+            "/paste {reply to text/file} - Pastes the Content to Spacebin.",
         ),
     )
     await message.reply_text(text)
