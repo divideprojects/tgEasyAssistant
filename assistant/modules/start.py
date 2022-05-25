@@ -24,17 +24,16 @@ from assistant import app
 async def start(clinet, message):
     if message.chat.type == "supergroup":
         return await message.reply_text("Assistant Bot is Alive")
-    else:
-        text = Section(
-            Link(label="tgEasy", url="https://github.com/jayantkageri/tgEasy"),
-            "Assistant Robot for tgEasy",
-            "",
-            Link(
-                label="Source Code",
-                url="https://github.com/DivideProjects/tgEasyAssistant",
-            ),
-        )
-        return await message.reply_text(str(text), disable_web_page_preview=True)
+    text = Section(
+        Link(label="tgEasy", url="https://github.com/jayantkageri/tgEasy"),
+        "Assistant Robot for tgEasy",
+        "",
+        Link(
+            label="Source Code",
+            url="https://github.com/DivideProjects/tgEasyAssistant",
+        ),
+    )
+    return await message.reply_text(str(text), disable_web_page_preview=True)
 
 
 @app.command("help")
