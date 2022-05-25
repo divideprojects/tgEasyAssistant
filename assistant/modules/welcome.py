@@ -84,10 +84,9 @@ async def wlc_conf(client, cb):
     if not await is_admin(cb.message.chat.id, (await client.get_me()).id, client):
         return
     try:
-        match = re.match(r"captcha\((.+?)\)", cb.data)
-        if match:
-            user_id = int(match.group(1))
-            if not user_id == cb.from_user.id:
+        if match := re.match(r"captcha\((.+?)\)", cb.data):
+            user_id = int(match[1])
+            if user_id != cb.from_user.id:
                 if (
                     await message.chat.get_member(cb.from_user.id)
                 ).status == "restricted":

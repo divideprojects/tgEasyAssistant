@@ -36,8 +36,7 @@ async def info(client, message):
             f"User ID: {Code(user.id)}",
             f"User Link: {user.mention('link')}",
         )
-        text = str(f"{info}\n")
-        text += "\nUser is a Bot." if user.is_bot else ""
+        text = str(f"{info}\n") + ("\nUser is a Bot." if user.is_bot else "")
         text += "\nUser has been flagged for Scam." if user.is_scam else ""
         text += "\nUser has been flagged for impersonation." if user.is_fake else ""
         text += "\nUser has been Verified by Telegram." if user.is_verified else ""

@@ -44,7 +44,7 @@ async def get(client, message):
         if message.reply_to_message
         else message.message_id
     )
-    if not len(message.command) > 1:
+    if len(message.command) <= 1:
         return await message.reply_text("Specify a Note to get.")
     if await get_note(message.chat.id, message.command[1]):
         return await message.reply_text(

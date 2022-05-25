@@ -162,10 +162,10 @@ async def delete(client, message):
 @app.command("purge", group_only=True, self_admin=True)
 @app.adminsOnly(permission="can_delete_messages")
 async def purge(client, message):
-    spurge = False
-    if len(message.command) > 1:
-        if "-s".lower() in message.command[1].lower():
-            spurge = True
+    spurge = (
+        len(message.command) > 1 and "-s".lower() in message.command[1].lower()
+    )
+
     messageIds = []
     if not message.reply_to_message:
         return await message.reply_text(
@@ -185,7 +185,6 @@ async def purge(client, message):
                 await client.delete_messages(message.chat.id, messageIds, revoke=True)
             except Exception as e:
                 print(e)
-                pass
     if not spurge:
         await client.send_message(message.chat.id, "Purge Complete.")
         return await message.delete()
