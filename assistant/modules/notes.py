@@ -26,7 +26,7 @@ NOTES = {
         "install": str(Code("pip install -U tgEasy")),
         "pypi": "https://pypi.org/project/tgEasy/",
         "pip": "https://pypi.org/project/tgEasy",
-    }
+    },
 }
 
 

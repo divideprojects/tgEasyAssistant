@@ -142,7 +142,7 @@ async def kickme(client, message):
         await message.chat.kick_member(message.from_user.id)
         await message.chat.unban_member(message.from_user.id)
         await message.reply_text(
-            f"As per the Wish of {message.from_user.mention}, They have been kicked."
+            f"As per the Wish of {message.from_user.mention}, They have been kicked.",
         )
     except:
         return
@@ -162,14 +162,12 @@ async def delete(client, message):
 @app.command("purge", group_only=True, self_admin=True)
 @app.adminsOnly(permission="can_delete_messages")
 async def purge(client, message):
-    spurge = (
-        len(message.command) > 1 and "-s".lower() in message.command[1].lower()
-    )
+    spurge = len(message.command) > 1 and "-s".lower() in message.command[1].lower()
 
     messageIds = []
     if not message.reply_to_message:
         return await message.reply_text(
-            "Reply to a message to show me where to purge from."
+            "Reply to a message to show me where to purge from.",
         )
     for ids in range(message.reply_to_message.message_id, message.message_id):
         messageIds.append(ids)

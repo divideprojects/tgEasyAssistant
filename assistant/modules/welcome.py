@@ -19,8 +19,10 @@ import re
 
 from pyrogram import filters
 from pyrogram.errors.exceptions.bad_request_400 import MessageNotModified
-from pyrogram.errors.exceptions.forbidden_403 import (ChatAdminRequired,
-                                                      ChatWriteForbidden)
+from pyrogram.errors.exceptions.forbidden_403 import (
+    ChatAdminRequired,
+    ChatWriteForbidden,
+)
 from pyrogram.methods.chats import get_chat_member
 from pyrogram.types import ChatPermissions, Message
 from pyrogram.types.messages_and_media import message
@@ -39,7 +41,7 @@ Important Rules:
     - No NSFW Contents
 
 [GitHub](https://github.com/jayantkageri/tgEasy) | [PyPi](https://pypi.org/project/tgEasy/) | [Documentation](https://github.com/jayantkageri/tgEasy/wiki)
-"""
+""",
 }
 
 
@@ -62,12 +64,12 @@ async def welcome(client, message: Message):
         try:
             if (await message.chat.get_member(user.id)).status == "restricted":
                 return await message.reply_text(
-                    f"User {user.mention} was Restricted by admins and they tried to rejoin the chat."
+                    f"User {user.mention} was Restricted by admins and they tried to rejoin the chat.",
                 )
             replied = await message.reply_text(
                 f"Hello {user.mention}! Please Click below Button to Confirm you are a Human",
                 reply_markup=ikb(
-                    [[["Confirm that you are a human", f"wlc_conf({user.id})"]]]
+                    [[["Confirm that you are a human", f"wlc_conf({user.id})"]]],
                 ),
             )
             await message.chat.restrict_member(user.id, ChatPermissions())

@@ -25,7 +25,7 @@ from .. import app
 @app.command("paste")
 async def paste_bin(client, message):
     statusMsg = await message.reply_text(
-        "Pasting to Spacebin, Please wait for a while..."
+        "Pasting to Spacebin, Please wait for a while...",
     )
     content = None
     extension = "txt"
@@ -36,7 +36,7 @@ async def paste_bin(client, message):
         if message.command[1].startswith("js"):
             extension = "javascript"
         if message.command[1].startswith("ts") or message.command[1].startswith(
-            "typescript"
+            "typescript",
         ):
             extension = "typescript"
         if message.command[1].startswith("go"):
@@ -44,7 +44,7 @@ async def paste_bin(client, message):
         if message.command[1].startswith("java"):
             extension = "java"
         if message.command[1].startswith("crystal") or message.command[1].startswith(
-            "cr"
+            "cr",
         ):
             extension = "crystal"
         if message.command[1].startswith("c") or message.command[1].startswith("objc"):
@@ -56,7 +56,7 @@ async def paste_bin(client, message):
         ):
             extension = "json"
         if message.command[1].startswith("markdown") or message.command[1].startswith(
-            "md"
+            "md",
         ):
             extension = "markdown"
         if (
@@ -80,7 +80,7 @@ async def paste_bin(client, message):
         if message.reply_to_message.document:
             if message.reply_to_message.document.file_size > 400000:
                 return await statusMsg.edit_text(
-                    "Max file size that can be pasted is 400KB."
+                    "Max file size that can be pasted is 400KB.",
                 )
             uniqueId = (
                 f"paste_{str(message.chat.id).replace('-', '')}_{message.message_id}"

@@ -41,7 +41,7 @@ async def help(client, message):
     text = Section(
         "Help.",
         Italic(
-            f"Note: All commands can be used with the following: {config('HANDLER', default='/!')}"
+            f"Note: All commands can be used with the following: {config('HANDLER', default='/!')}",
         ),
         SubSection(
             "Commands:",
