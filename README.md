@@ -15,7 +15,7 @@ learn more about these topics.
 
 ## Run
 
-1. `git clone https://github.com/DivideProjects/tgEasyAssistant`, to download the source code.
+1. `git clone https://github.com/divkix/tgEasyAssistant`, to download the source code.
 2. `cd tgEasyAssistant`, to enter the directory.
 3. `python3 -m venv venv && . venv/bin/activate` to create and activate a virtual environment.
 3. `pip install -U -r requirements.txt`, to install the requirements.

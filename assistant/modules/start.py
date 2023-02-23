@@ -30,7 +30,7 @@ async def start(clinet, message):
         "",
         Link(
             label="Source Code",
-            url="https://github.com/DivideProjects/tgEasyAssistant",
+            url="https://github.com/divkix/tgEasyAssistant",
         ),
     )
     return await message.reply_text(str(text), disable_web_page_preview=True)
