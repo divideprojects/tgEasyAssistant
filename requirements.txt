@@ -1,3 +1,3 @@
-aiohttp==3.9.1
+aiohttp==3.9.2
 kantex==0.2.0
 tgEasy==1.3.3
